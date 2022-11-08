@@ -10,19 +10,6 @@ import FirebaseCore
 
 class SignUpViewController: UIViewController {
     
-    private lazy var email: UITextField = {
-        return email
-    }()
-    
-    private lazy var fullName: UITextField = {
-       return fullName
-    }()
-    
-    private lazy var password: UITextField = {
-       return password
-    }()
-
-    
     private lazy var titleLabel: UILabel = {
        
         let titleLabel = UILabel()
@@ -33,29 +20,75 @@ class SignUpViewController: UIViewController {
         
     }()
        
-    private lazy var emailContainerView: CustomTextField = {
-       
-        let emailContainerView = CustomTextField()
-        emailContainerView.initViews(image: "envelope",
-                                     placeholder: "Email",
-                                     isPassword: false)
-        return emailContainerView
+    private lazy var emailContainerView: CustomUIView = {
+        
+        let view = CustomUIView()
+        view.initViews(image: "envelope")
+        
+        view.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { make in
+            make.left.equalTo(view.snp.left).offset(36)
+            make.top.equalTo(view.snp.top).offset(3)
+            make.right.equalTo(view.snp.right)
+        }
+        
+        return view
         
     }()
     
-    private lazy var fullnameContainerView: CustomTextField = {
-       
-        let fullnameContainerView = CustomTextField()
-        fullnameContainerView.initViews(image: "person", placeholder: "Fullname", isPassword: false)
-        return fullnameContainerView
+    private lazy var emailTextField: CustomTextField = {
+        
+        let textField = CustomTextField()
+        textField.initViews(placeholder: "Email")
+        return textField
         
     }()
     
-    private lazy var passwordContainerView: CustomTextField = {
-       
-        let passwordContainerView = CustomTextField()
-        passwordContainerView.initViews(image: "lock", placeholder: "Password", isPassword: true)
-        return passwordContainerView
+    private lazy var fullnameContainerView: CustomUIView = {
+        
+        let view = CustomUIView()
+        view.initViews(image: "person")
+        
+        view.addSubview(fullnameTextField)
+        fullnameTextField.snp.makeConstraints { make in
+            make.left.equalTo(view.snp.left).offset(36)
+            make.top.equalTo(view.snp.top).offset(3)
+            make.right.equalTo(view.snp.right)
+        }
+        
+        return view
+        
+    }()
+    
+    private lazy var fullnameTextField: CustomTextField = {
+        
+        let textField = CustomTextField()
+        textField.initViews(placeholder: "Fullname")
+        return textField
+        
+    }()
+    
+    private lazy var passwordContainerView: CustomUIView = {
+        
+        let view = CustomUIView()
+        view.initViews(image: "lock")
+        
+        view.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints { make in
+            make.left.equalTo(view.snp.left).offset(36)
+            make.top.equalTo(view.snp.top).offset(3)
+            make.right.equalTo(view.snp.right)
+        }
+        
+        return view
+        
+    }()
+    
+    private lazy var passwordTextField: CustomTextField = {
+        
+        let textField = CustomTextField()
+        textField.initViews(placeholder: "Password")
+        return textField
         
     }()
     
@@ -71,9 +104,9 @@ class SignUpViewController: UIViewController {
         let singUpButton = CustomButtonWithBackground(type: .system)
         singUpButton.initViews(buttonText: "Sing Up")
         singUpButton.onAction = { success in
-            
-            print(success)
-            
+            print(self.emailTextField.text!)
+            print(self.fullnameTextField.text!)
+            print(self.passwordTextField.text!)
         }
         return singUpButton
         
@@ -89,8 +122,7 @@ class SignUpViewController: UIViewController {
         }
         return alreadyHaveAnAccount
     }()
-    
-    
+
     
 
     override func viewDidLoad() {

@@ -10,15 +10,6 @@ import SnapKit
 
 class LoginViewController: UIViewController {
     
-    struct User {
-        var email: String = ""
-        var password: String = ""
-    }
-    
-    var user = User()
-    
-    var customTF = CustomTextField()
-    
     //MARK: - Variables
     
     private lazy var titleLabel: UILabel = {
@@ -31,41 +22,62 @@ class LoginViewController: UIViewController {
         
     }()
     
-    private lazy var emailContainerView: CustomTextField = {
+    private lazy var emailContainerView: CustomUIView = {
+       
+        let view = CustomUIView()
+        view.initViews(image: "envelope")
         
-        let emailContainerView = CustomTextField()
-        emailContainerView.initViews(image: "envelope",
-                                     placeholder: "Email",
-                                     isPassword: false)
-        emailContainerView.onText = { email in
-            
+        view.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { make in
+            make.left.equalTo(view.snp.left).offset(36)
+            make.top.equalTo(view.snp.top).offset(3)
+            make.right.equalTo(view.snp.right)
         }
         
-        return emailContainerView
+        return view
         
     }()
     
-    private lazy var passwordContainerView: CustomTextField = {
+    private lazy var emailTextField: CustomTextField = {
         
-        let passwordContainerView = CustomTextField()
-        passwordContainerView.initViews(image: "lock",
-                                        placeholder: "Password",
-                                        isPassword: true)
-        passwordContainerView.onText = { password in
-            self.user.password = password
+        let textField = CustomTextField()
+        textField.initViews(placeholder: "Email")
+        return textField
+    }()
+    
+    private lazy var passwordContainerView: CustomUIView = {
+       
+        let view = CustomUIView()
+        view.initViews(image: "lock")
+        
+        view.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints { make in
+            make.left.equalTo(view.snp.left).offset(36)
+            make.top.equalTo(view.snp.top).offset(3)
+            make.right.equalTo(view.snp.right)
         }
-        return passwordContainerView
+        
+        return view
+        
+    }()
+    
+    private lazy var passwordTextField: CustomTextField = {
+        
+        let textField = CustomTextField()
+        textField.initViews(placeholder: "Password")
+        return textField
     }()
     
     private lazy var logInButton: CustomButtonWithBackground = {
-        
+
         let logInButton = CustomButtonWithBackground(type: .system)
         logInButton.initViews(buttonText: "Log In")
         logInButton.onAction = { success in
-            
+            print(self.emailTextField.text!)
+            print(self.passwordTextField.text!)
         }
         return logInButton
-        
+
     }()
     
     private lazy var dontHaveAccountButton: CustomQuestionButton = {
@@ -106,11 +118,13 @@ class LoginViewController: UIViewController {
     //MARK: - Methods
     
     private func initSetups(){
+        
         view.addSubview(titleLabel)
         view.addSubview(emailContainerView)
         view.addSubview(passwordContainerView)
         view.addSubview(logInButton)
         view.addSubview(dontHaveAccountButton)
+        
     }
     
     
@@ -130,8 +144,8 @@ class LoginViewController: UIViewController {
         }
         
         passwordContainerView.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
             make.top.equalTo(emailContainerView.snp.bottom).offset(40)
+            make.centerX.equalTo(view)
             make.width.equalTo(view.snp.width).offset(-32)
             make.height.equalTo(34)
         }
@@ -141,7 +155,7 @@ class LoginViewController: UIViewController {
             make.left.equalTo(view.safeAreaLayoutGuide.snp.left).offset(16)
             make.width.equalTo(view.snp.width).offset(-32)
             make.height.equalTo(52)
-            
+
         }
         
         dontHaveAccountButton.snp.makeConstraints { make in
