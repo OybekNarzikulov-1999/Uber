@@ -7,6 +7,12 @@ target 'Uber' do
 
   # Pods for Uber
 
-pod 'SnapKit', '~> 5.0.0'
+	pod 'SnapKit', '~> 5.0.0'
+
+	pod 'FirebaseCore'
+	pod 'FirebaseFirestore'
+	pod 'FirebaseAuth'
+	pod 'FirebaseDatabase'
+	pod 'GeoFire', '>= 1.1'
 
 end

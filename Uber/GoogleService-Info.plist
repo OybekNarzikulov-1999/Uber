@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>632557247591-qoe4dqahcn7l0468kl4btvlkuhkgqqt6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.632557247591-qoe4dqahcn7l0468kl4btvlkuhkgqqt6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBHhhOho8JKKARBcvcNCEc-dcSnh1k_iOQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>632557247591</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ru.narzikulov-99-mail.Uber</string>
+	<key>PROJECT_ID</key>
+	<string>uber-ddbed</string>
+	<key>STORAGE_BUCKET</key>
+	<string>uber-ddbed.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:632557247591:ios:3655a4f8f6a465f82208c2</string>
+</dict>
+</plist>

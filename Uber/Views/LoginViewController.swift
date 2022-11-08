@@ -10,10 +10,19 @@ import SnapKit
 
 class LoginViewController: UIViewController {
     
+    struct User {
+        var email: String = ""
+        var password: String = ""
+    }
+    
+    var user = User()
+    
+    var customTF = CustomTextField()
+    
     //MARK: - Variables
     
     private lazy var titleLabel: UILabel = {
-       
+        
         let titleLabel = UILabel()
         titleLabel.text = "UBER"
         titleLabel.textColor = UIColor.white
@@ -23,38 +32,44 @@ class LoginViewController: UIViewController {
     }()
     
     private lazy var emailContainerView: CustomTextField = {
-       
+        
         let emailContainerView = CustomTextField()
         emailContainerView.initViews(image: "envelope",
                                      placeholder: "Email",
                                      isPassword: false)
+        emailContainerView.onText = { email in
+            
+        }
+        
         return emailContainerView
         
     }()
     
     private lazy var passwordContainerView: CustomTextField = {
-       
+        
         let passwordContainerView = CustomTextField()
         passwordContainerView.initViews(image: "lock",
                                         placeholder: "Password",
                                         isPassword: true)
+        passwordContainerView.onText = { password in
+            self.user.password = password
+        }
         return passwordContainerView
-        
     }()
     
     private lazy var logInButton: CustomButtonWithBackground = {
-       
+        
         let logInButton = CustomButtonWithBackground(type: .system)
         logInButton.initViews(buttonText: "Log In")
         logInButton.onAction = { success in
-            print("Log In")
+            
         }
         return logInButton
         
     }()
     
     private lazy var dontHaveAccountButton: CustomQuestionButton = {
-
+        
         let button = CustomQuestionButton(type: .system)
         button.initViews(questionText: "Don't have an account? ", buttonText: "Sign Up")
         button.onAction = { _ in
@@ -64,16 +79,16 @@ class LoginViewController: UIViewController {
         }
         return button
     }()
-
+    
     
     
     
     
     //MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         initSetups()
         initConstraints()
@@ -83,13 +98,13 @@ class LoginViewController: UIViewController {
         
     }
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
+    //    override var preferredStatusBarStyle: UIStatusBarStyle {
+    //        return .lightContent
+    //    }
     
     
     //MARK: - Methods
-
+    
     private func initSetups(){
         view.addSubview(titleLabel)
         view.addSubview(emailContainerView)

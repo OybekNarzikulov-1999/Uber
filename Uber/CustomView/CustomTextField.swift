@@ -10,6 +10,16 @@ import SnapKit
 
 class CustomTextField: UIView {
     
+    var onText: ((String) -> Void)?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func initViews(image: String, placeholder: String, isPassword: Bool){
         
         let imageIcon = UIImageView()
@@ -24,7 +34,11 @@ class CustomTextField: UIView {
         textField.isSecureTextEntry = isPassword
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray ])
         textField.keyboardAppearance = .dark
+        if let onText = onText {
+            onText(textField.text ?? "")
+        }
         textField.font = .systemFont(ofSize: 16)
+        
         self.addSubview(textField)
         
         let underlineView = UIView()
@@ -53,5 +67,6 @@ class CustomTextField: UIView {
         }
         
     }
-    
 }
+    
+

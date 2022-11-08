@@ -6,9 +6,22 @@
 //
 
 import UIKit
+import FirebaseCore
 
 class SignUpViewController: UIViewController {
     
+    private lazy var email: UITextField = {
+        return email
+    }()
+    
+    private lazy var fullName: UITextField = {
+       return fullName
+    }()
+    
+    private lazy var password: UITextField = {
+       return password
+    }()
+
     
     private lazy var titleLabel: UILabel = {
        
@@ -19,7 +32,7 @@ class SignUpViewController: UIViewController {
         return titleLabel
         
     }()
-    
+       
     private lazy var emailContainerView: CustomTextField = {
        
         let emailContainerView = CustomTextField()
@@ -58,7 +71,9 @@ class SignUpViewController: UIViewController {
         let singUpButton = CustomButtonWithBackground(type: .system)
         singUpButton.initViews(buttonText: "Sing Up")
         singUpButton.onAction = { success in
-            print("Sign Up")
+            
+            print(success)
+            
         }
         return singUpButton
         
@@ -70,8 +85,7 @@ class SignUpViewController: UIViewController {
         alreadyHaveAnAccount.initViews(questionText: "Already have an account? ", buttonText: "Sign In")
         alreadyHaveAnAccount.onAction = { _ in
             print("Sign In")
-            let loginVC = LoginViewController()
-            self.navigationController?.pushViewController(loginVC, animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         return alreadyHaveAnAccount
     }()
