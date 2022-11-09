@@ -20,7 +20,6 @@
 		EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1152913DF7D0063D848 /* SignUpViewController.swift */; };
 		EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1172913E9A10063D848 /* CustomSegmentedControll.swift */; };
 		EABCD11A29140B910063D848 /* CustomButtonWithBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */; };
-		EABDD20C2913BC8700E3C036 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABDD20B2913BC8700E3C036 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		EABCD1152913DF7D0063D848 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EABCD1172913E9A10063D848 /* CustomSegmentedControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControll.swift; sourceTree = "<group>"; };
 		EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonWithBackground.swift; sourceTree = "<group>"; };
-		EABDD20B2913BC8700E3C036 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				EA7792FB291A8BA800166508 /* CustomUIView.swift */,
-				EABDD20B2913BC8700E3C036 /* CustomTextField.swift */,
 				EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */,
 				EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */,
 				EABCD1172913E9A10063D848 /* CustomSegmentedControll.swift */,
@@ -279,7 +276,6 @@
 				EABCD11A29140B910063D848 /* CustomButtonWithBackground.swift in Sources */,
 				EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */,
 				EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */,
-				EABDD20C2913BC8700E3C036 /* CustomTextField.swift in Sources */,
 				EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */,
 				EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */,
 				EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */,

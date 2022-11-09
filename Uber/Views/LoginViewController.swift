@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -25,56 +26,41 @@ class LoginViewController: UIViewController {
     private lazy var emailContainerView: CustomUIView = {
        
         let view = CustomUIView()
-        view.initViews(image: "envelope")
-        
-        view.addSubview(emailTextField)
-        emailTextField.snp.makeConstraints { make in
-            make.left.equalTo(view.snp.left).offset(36)
-            make.top.equalTo(view.snp.top).offset(3)
-            make.right.equalTo(view.snp.right)
-        }
-        
+        view.iconImage = "envelope"
+        view.placeholder = "Email"
+        view.initViews()
         return view
         
-    }()
-    
-    private lazy var emailTextField: CustomTextField = {
-        
-        let textField = CustomTextField()
-        textField.initViews(placeholder: "Email")
-        return textField
     }()
     
     private lazy var passwordContainerView: CustomUIView = {
        
         let view = CustomUIView()
-        view.initViews(image: "lock")
-        
-        view.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints { make in
-            make.left.equalTo(view.snp.left).offset(36)
-            make.top.equalTo(view.snp.top).offset(3)
-            make.right.equalTo(view.snp.right)
-        }
-        
+        view.iconImage = "lock"
+        view.placeholder = "Password"
+        view.initViews()
         return view
         
-    }()
-    
-    private lazy var passwordTextField: CustomTextField = {
-        
-        let textField = CustomTextField()
-        textField.initViews(placeholder: "Password")
-        return textField
     }()
     
     private lazy var logInButton: CustomButtonWithBackground = {
 
         let logInButton = CustomButtonWithBackground(type: .system)
         logInButton.initViews(buttonText: "Log In")
-        logInButton.onAction = { success in
-            print(self.emailTextField.text!)
-            print(self.passwordTextField.text!)
+        logInButton.onAction = { _ in
+            
+            guard let email = self.emailContainerView.customTextField.text else {return}
+            guard let password = self.passwordContainerView.customTextField.text else {return}
+            
+            Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                if let error = error {
+                    print("DEBUG: Failed to sign in user with error -> \(error.localizedDescription)")
+                    return
+                }
+                
+                print("Successfully Sign In...")
+            }
+            
         }
         return logInButton
 
@@ -91,8 +77,6 @@ class LoginViewController: UIViewController {
         }
         return button
     }()
-    
-    
     
     
     
