@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                print("Successfully Sign In...")
+                self.dismiss(animated: true)
             }
             
         }
@@ -71,9 +71,11 @@ class LoginViewController: UIViewController {
         let button = CustomQuestionButton(type: .system)
         button.initViews(questionText: "Don't have an account? ", buttonText: "Sign Up")
         button.onAction = { _ in
-            print("Sign Up")
-            let signUpVC = SignUpViewController()
-            self.navigationController?.pushViewController(signUpVC, animated: true)
+            DispatchQueue.main.async {
+                print("Sign Up")
+                let signUpVC = SignUpViewController()
+                self.navigationController?.pushViewController(signUpVC, animated: true)
+            }
         }
         return button
     }()

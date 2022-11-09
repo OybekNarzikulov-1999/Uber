@@ -82,7 +82,7 @@ class SignUpViewController: UIViewController {
                 
                 Database.database().reference().child("users").child(uid).updateChildValues(values) { error, reference in
                     
-                    print("Successfully registered user and saved data...")
+                    self.dismiss(animated: true)
                     
                 }
             }
