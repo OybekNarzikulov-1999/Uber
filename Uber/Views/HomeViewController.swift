@@ -20,12 +20,15 @@ class HomeViewController: UIViewController {
     
     private lazy var inputActivationView = LocationInputActivationView()
     
+    private lazy var locationInputView = LocationInputView()
+    
     
     
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         checkIfUserIsLoggedIn()
         initViews()
         initConstraints()
@@ -36,8 +39,21 @@ class HomeViewController: UIViewController {
     //MARK: - Methods
     
     func initViews(){
+        
+        inputActivationView.delegate = self
+        locationInputView.delegate = self
+        
         view.addSubview(mapView)
         view.addSubview(inputActivationView)
+        
+        inputActivationView.alpha = 0
+        UIView.animate(withDuration: 1) {
+            self.inputActivationView.alpha = 1
+        }
+        
+        view.addSubview(locationInputView)
+        locationInputView.alpha = 0
+        
     }
     
     func initConstraints(){
@@ -53,6 +69,14 @@ class HomeViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             
         }
+        
+        locationInputView.snp.makeConstraints { make in
+            make.left.right.top.equalTo(0)
+            make.height.equalTo(200)
+        }
+        
+        
+        
     }
     
     
@@ -111,4 +135,35 @@ extension HomeViewController: CLLocationManagerDelegate {
         
     }
     
+}
+
+//MARK: - LocationInputActivationViewDelegate
+
+extension HomeViewController: LocationInputActivationViewDelegate {
+    
+    func presentLocationInputView() {
+        
+        inputActivationView.alpha = 0
+        
+        UIView.animate(withDuration: 0.5) {
+            self.locationInputView.alpha = 1
+        } completion: { _ in
+            print("Table view starts appear")
+        }
+    }
+    
+}
+
+
+//MARK: - LocationInputViewDelegate
+
+extension HomeViewController: LocationInputViewDelegate {
+    func dismissLocationInputView(){
+        UIView.animate(withDuration: 0.3) {
+            self.locationInputView.alpha = 0
+        } completion: { _ in
+            self.inputActivationView.alpha = 1
+        }
+
+    }
 }

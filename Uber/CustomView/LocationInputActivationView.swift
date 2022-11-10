@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol LocationInputActivationViewDelegate{
+    func presentLocationInputView()
+}
+
 class LocationInputActivationView: UIView {
 
     //MARK: - Properties
+    
+    var delegate: LocationInputActivationViewDelegate?
     
     private lazy var pointView: UIView = {
        
@@ -38,10 +44,7 @@ class LocationInputActivationView: UIView {
         
         self.backgroundColor = .white
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.55
-        layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        layer.masksToBounds = false
+        addShadow()
         
         initViews()
         
@@ -55,6 +58,9 @@ class LocationInputActivationView: UIView {
         
         self.addSubview(pointView)
         self.addSubview(addresslabel)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(presentLocationInputView))
+        addGestureRecognizer(tap)
         
         pointView.snp.makeConstraints { make in
             
@@ -72,6 +78,10 @@ class LocationInputActivationView: UIView {
             
         }
         
+    }
+    
+    @objc func presentLocationInputView(){
+        delegate?.presentLocationInputView()
     }
     
 }
