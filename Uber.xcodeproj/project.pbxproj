@@ -10,6 +10,7 @@
 		0DDB46D5EF89FAA334A52190 /* Pods_Uber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F644803F25C9C83E9EFB2E /* Pods_Uber.framework */; };
 		EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228075291BC9CB005C8357 /* HomeViewController.swift */; };
 		EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228077291BF25E005C8357 /* LocationInputActivationView.swift */; };
+		EA27DEDD291E8DA800E339DF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA27DEDC291E8DA800E339DF /* User.swift */; };
 		EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D703E2912AA45007004B5 /* AppDelegate.swift */; };
 		EA2D70412912AA45007004B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D70402912AA45007004B5 /* SceneDelegate.swift */; };
 		EA2D70462912AA45007004B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2D70442912AA45007004B5 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		EACCA63C291D1BF400BF80C4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA63B291D1BF400BF80C4 /* Extentions.swift */; };
 		EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */; };
 		EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA640291E5B5C00BF80C4 /* LocationTableViewCell.swift */; };
+		EACCA643291E799600BF80C4 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA642291E799600BF80C4 /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,7 @@
 		DE292FB4A24C948506CC82DE /* Pods-Uber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.release.xcconfig"; path = "Target Support Files/Pods-Uber/Pods-Uber.release.xcconfig"; sourceTree = "<group>"; };
 		EA228075291BC9CB005C8357 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EA228077291BF25E005C8357 /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
+		EA27DEDC291E8DA800E339DF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EA2D703B2912AA45007004B5 /* Uber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2D703E2912AA45007004B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA2D70402912AA45007004B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		EACCA63B291D1BF400BF80C4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputView.swift; sourceTree = "<group>"; };
 		EACCA640291E5B5C00BF80C4 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		EACCA642291E799600BF80C4 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +143,7 @@
 		EA2D70532912AA4C007004B5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EACCA642291E799600BF80C4 /* Service.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 		EA2D70562912AA56007004B5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EA27DEDC291E8DA800E339DF /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,12 +319,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */,
+				EACCA643291E799600BF80C4 /* Service.swift in Sources */,
 				EABCD11A29140B910063D848 /* CustomButtonWithBackground.swift in Sources */,
 				EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */,
 				EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */,
 				EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */,
 				EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */,
 				EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */,
+				EA27DEDD291E8DA800E339DF /* User.swift in Sources */,
 				EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */,
 				EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */,
 				EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */,

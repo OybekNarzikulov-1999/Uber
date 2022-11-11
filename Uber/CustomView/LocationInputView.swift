@@ -18,6 +18,12 @@ class LocationInputView: UIView {
     
     var delegate: LocationInputViewDelegate?
     
+    var user: User? {
+        didSet {
+            nameLabel.text = user?.name
+        }
+    }
+    
     private lazy var arrowButton: UIButton = {
        
         let arrowButton = UIButton()
@@ -28,10 +34,9 @@ class LocationInputView: UIView {
         
     }()
     
-    private lazy var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         
         let label = UILabel()
-        label.text = "Oybek Narzikulov"
         label.textColor = .darkGray
         return label
         

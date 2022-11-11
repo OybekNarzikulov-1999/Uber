@@ -24,6 +24,12 @@ class HomeViewController: UIViewController {
     
     private lazy var locationInputView = LocationInputView()
     
+    private var user: User? {
+        didSet {
+            locationInputView.user = user!
+        }
+    }
+    
     private lazy var tableView: UITableView = {
        
         let tableView = UITableView()
@@ -45,6 +51,8 @@ class HomeViewController: UIViewController {
         initViews()
         initConstraints()
         enableLocationServices()
+        fetchUserData()
+        
     }
 
     
@@ -97,6 +105,12 @@ class HomeViewController: UIViewController {
             make.height.equalTo(view.snp.height).offset(-200)
         }
         
+    }
+    
+    func fetchUserData(){
+        Service.shared.fetchUserData { user in
+            self.user = user
+        }
     }
     
     
