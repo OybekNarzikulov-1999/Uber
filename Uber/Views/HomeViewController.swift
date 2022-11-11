@@ -10,6 +10,8 @@ import Firebase
 import SnapKit
 import MapKit
 
+private let LocationCellID = "LocationTableViewCell"
+
 class HomeViewController: UIViewController {
     
     //MARK: - Properties
@@ -21,6 +23,16 @@ class HomeViewController: UIViewController {
     private lazy var inputActivationView = LocationInputActivationView()
     
     private lazy var locationInputView = LocationInputView()
+    
+    private lazy var tableView: UITableView = {
+       
+        let tableView = UITableView()
+        tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: LocationCellID)
+        tableView.rowHeight = 60
+        tableView.allowsSelection = false
+        return tableView
+        
+    }()
     
     
     
@@ -40,11 +52,15 @@ class HomeViewController: UIViewController {
     
     func initViews(){
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         inputActivationView.delegate = self
         locationInputView.delegate = self
         
         view.addSubview(mapView)
         view.addSubview(inputActivationView)
+        view.addSubview(tableView)
         
         inputActivationView.alpha = 0
         UIView.animate(withDuration: 1) {
@@ -75,7 +91,11 @@ class HomeViewController: UIViewController {
             make.height.equalTo(200)
         }
         
-        
+        tableView.snp.makeConstraints { make in
+            make.left.right.equalTo(0)
+            make.top.equalTo(view.snp.bottom)
+            make.height.equalTo(view.snp.height).offset(-200)
+        }
         
     }
     
@@ -145,10 +165,17 @@ extension HomeViewController: LocationInputActivationViewDelegate {
         
         inputActivationView.alpha = 0
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.locationInputView.alpha = 1
         } completion: { _ in
-            print("Table view starts appear")
+            print("TextField starts appear")
+            
+            UIView.animate(withDuration: 0.3) {
+                self.tableView.frame.origin.y = 200
+            } completion: { _ in
+                print("table view appears")
+            }
+            
         }
     }
     
@@ -159,11 +186,43 @@ extension HomeViewController: LocationInputActivationViewDelegate {
 
 extension HomeViewController: LocationInputViewDelegate {
     func dismissLocationInputView(){
+        
         UIView.animate(withDuration: 0.3) {
             self.locationInputView.alpha = 0
         } completion: { _ in
             self.inputActivationView.alpha = 1
         }
 
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.frame.origin.y = self.view.frame.height
+        }
+        
     }
+}
+
+
+// MARK: - TableView DataSource and Delegate Methods
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return " "
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 2 : 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationCellID, for: indexPath) as! LocationTableViewCell
+        
+        return cell
+        
+    }
+    
 }

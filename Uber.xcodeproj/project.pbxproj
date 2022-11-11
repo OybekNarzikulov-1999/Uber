@@ -24,6 +24,7 @@
 		EABCD11A29140B910063D848 /* CustomButtonWithBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */; };
 		EACCA63C291D1BF400BF80C4 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA63B291D1BF400BF80C4 /* Extentions.swift */; };
 		EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */; };
+		EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACCA640291E5B5C00BF80C4 /* LocationTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonWithBackground.swift; sourceTree = "<group>"; };
 		EACCA63B291D1BF400BF80C4 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputView.swift; sourceTree = "<group>"; };
+		EACCA640291E5B5C00BF80C4 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		EABDD20A2913BC4800E3C036 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				EACCA63F291E5B4600BF80C4 /* CustomCell */,
 				EA7792FB291A8BA800166508 /* CustomUIView.swift */,
 				EABCD11929140B910063D848 /* CustomButtonWithBackground.swift */,
 				EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */,
@@ -183,6 +186,14 @@
 			children = (
 			);
 			path = "New Group1";
+			sourceTree = "<group>";
+		};
+		EACCA63F291E5B4600BF80C4 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				EACCA640291E5B5C00BF80C4 /* LocationTableViewCell.swift */,
+			);
+			path = CustomCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +317,7 @@
 				EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */,
 				EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */,
 				EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */,
+				EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */,
 				EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */,
 				EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */,
 				EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */,
