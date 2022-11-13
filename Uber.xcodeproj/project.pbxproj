@@ -17,6 +17,7 @@
 		EA2D70482912AA47007004B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2D70472912AA47007004B5 /* Assets.xcassets */; };
 		EA2D704B2912AA47007004B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2D70492912AA47007004B5 /* LaunchScreen.storyboard */; };
 		EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D70572912AA9B007004B5 /* LoginViewController.swift */; };
+		EA7677D229209574004E45AC /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D129209574004E45AC /* LocationHandler.swift */; };
 		EA7792D829151DB500166508 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7792D729151DB500166508 /* GoogleService-Info.plist */; };
 		EA7792FC291A8BA800166508 /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7792FB291A8BA800166508 /* CustomUIView.swift */; };
 		EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */; };
@@ -44,6 +45,7 @@
 		EA2D704A2912AA47007004B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA2D704C2912AA47007004B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA2D70572912AA9B007004B5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EA7677D129209574004E45AC /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		EA7792D729151DB500166508 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA7792FB291A8BA800166508 /* CustomUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
 		EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionButton.swift; sourceTree = "<group>"; };
@@ -85,13 +87,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EA20FE50291D1BC200691733 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		EA2D70322912AA45007004B5 = {
 			isa = PBXGroup;
 			children = (
@@ -113,8 +108,6 @@
 		EA2D703D2912AA45007004B5 /* Uber */ = {
 			isa = PBXGroup;
 			children = (
-				EACCA63A291D1BDA00BF80C4 /* New Group1 */,
-				EA20FE50291D1BC200691733 /* New Group */,
 				EA2D703E2912AA45007004B5 /* AppDelegate.swift */,
 				EA2D70402912AA45007004B5 /* SceneDelegate.swift */,
 				EABDD20A2913BC4800E3C036 /* CustomView */,
@@ -144,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				EACCA642291E799600BF80C4 /* Service.swift */,
+				EA7677D129209574004E45AC /* LocationHandler.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -185,13 +179,6 @@
 				EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */,
 			);
 			path = CustomView;
-			sourceTree = "<group>";
-		};
-		EACCA63A291D1BDA00BF80C4 /* New Group1 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group1";
 			sourceTree = "<group>";
 		};
 		EACCA63F291E5B4600BF80C4 /* CustomCell */ = {
@@ -325,6 +312,7 @@
 				EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */,
 				EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */,
 				EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */,
+				EA7677D229209574004E45AC /* LocationHandler.swift in Sources */,
 				EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */,
 				EA27DEDD291E8DA800E339DF /* User.swift in Sources */,
 				EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */,

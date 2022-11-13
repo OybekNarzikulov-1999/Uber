@@ -7,8 +7,13 @@
 //
 import UIKit
 import Firebase
+import GeoFire
 
 class SignUpViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    private let location = LocationHandler.shared.locationManager.location
 
     private lazy var titleLabel: UILabel = {
 
@@ -80,11 +85,20 @@ class SignUpViewController: UIViewController {
                 
                 let values: [String:Any] = ["email": email, "fullname": fullname, "accountType": accountTypeIndex]
                 
-                Database.database().reference().child("users").child(uid).updateChildValues(values) { error, reference in
+                if accountTypeIndex == 1 {
                     
-                    self.dismiss(animated: true)
+                    let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+                    guard let location = self.location else { return }
+
+                    geofire.setLocation(location, forKey: uid) { error in
+                        
+                        self.uploadUserDataAndShowHomeController(uid: uid, values: values)
+                        
+                    }
                     
                 }
+                
+                self.uploadUserDataAndShowHomeController(uid: uid, values: values)
             }
             
         }
@@ -103,7 +117,7 @@ class SignUpViewController: UIViewController {
         return alreadyHaveAnAccount
     }()
 
-
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +129,18 @@ class SignUpViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
 
+    }
+    
+    // MARK: - Methods
+    
+    func uploadUserDataAndShowHomeController(uid: String, values: [String:Any]){
+        
+        Database.database().reference().child("users").child(uid).updateChildValues(values) { error, reference in
+            
+            self.dismiss(animated: true)
+            
+        }
+        
     }
 
     func initSetups(){
