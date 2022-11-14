@@ -7,10 +7,20 @@
 
 import UIKit
 import SnapKit
+import MapKit
 
 class LocationTableViewCell: UITableViewCell {
     
     //MARK: - Properties
+    
+    var placemark: MKPlacemark? {
+        
+        didSet{
+            titleLabel.text = placemark?.name
+            addressLabel.text = placemark?.address
+        }
+        
+    }
     
     
     lazy var titleLabel: UILabel = {
