@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
     
     private var actionButtonConfig = actionButtonConfiguration()
     
+    private lazy var rideActionView = RideActivationView()
+    
     private var route: MKRoute?
     
     private lazy var actionButton: UIButton = {
@@ -97,6 +99,7 @@ class HomeViewController: UIViewController {
         view.addSubview(inputActivationView)
         view.addSubview(tableView)
         view.addSubview(actionButton)
+        view.addSubview(rideActionView)
         
         inputActivationView.alpha = 0
         UIView.animate(withDuration: 1) {
@@ -114,12 +117,10 @@ class HomeViewController: UIViewController {
         mapView.userTrackingMode = .follow
         
         inputActivationView.snp.makeConstraints { make in
-            
             make.centerX.equalTo(view)
             make.width.equalTo(view.safeAreaLayoutGuide.snp.width).offset(-64)
             make.height.equalTo(50)
             make.top.equalTo(actionButton.snp.bottom).offset(28)
-            
         }
         
         locationInputView.snp.makeConstraints { make in
@@ -140,6 +141,12 @@ class HomeViewController: UIViewController {
             make.height.equalTo(30)
         }
         
+        rideActionView.snp.makeConstraints { make in
+            make.left.right.equalTo(0)
+            make.top.equalTo(view.snp.bottom)
+            make.height.equalTo(300)
+        }
+        
     }
     
     // MARK: - Selectors
@@ -152,13 +159,15 @@ class HomeViewController: UIViewController {
         case .dismissActionButton:
             
             removeAnnotationsAndOverlayers()
+            mapView.showAnnotations(mapView.annotations, animated: true)
             
             UIView.animate(withDuration: 0.3) {
                 self.inputActivationView.alpha = 1
                 self.configureActionButton(config: .showMenu)
                 
+                self.presentRideActionView(shouldShow: false)
+                
             }
-            
         }
         
     }
@@ -250,6 +259,20 @@ class HomeViewController: UIViewController {
             self.tableView.frame.origin.y = self.view.frame.height
         }, completion: completion)
         
+    }
+    
+    func presentRideActionView(shouldShow: Bool, destination: MKPlacemark? = nil){
+        
+        let yOrigin = shouldShow ? self.view.frame.height - 300 : self.view.frame.height
+        
+        if shouldShow {
+            guard let destination = destination else {return}
+            rideActionView.destination = destination
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.rideActionView.frame.origin.y = yOrigin
+        }
     }
     
 }
@@ -444,6 +467,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         let selectedPlacemark = searchResults[indexPath.row]
         
+        let destination = MKMapItem(placemark: selectedPlacemark)
+        generatePolyline(toDestination: destination)
+        
         configureActionButton(config: .dismissActionButton)
         
         self.tableView.deselectRow(at: indexPath, animated: true)
@@ -454,11 +480,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self.mapView.addAnnotation(annotation)
             self.mapView.selectAnnotation(annotation, animated: true)
             
+            let annotations = self.mapView.annotations.filter({ !$0.isKind(of: DriverAnnotation.self) })
+            
+            self.mapView.showAnnotations(annotations, animated: true)
+            
+            self.presentRideActionView(shouldShow: true, destination: selectedPlacemark)
         }
-        
-        let destination = MKMapItem(placemark: selectedPlacemark)
-        generatePolyline(toDestination: destination)
-        
     }
     
 }
