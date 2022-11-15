@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
     
     private var actionButtonConfig = actionButtonConfiguration()
     
+    private var route: MKRoute?
+    
     private lazy var actionButton: UIButton = {
         
         let button = UIButton(type: .system)
@@ -149,11 +151,7 @@ class HomeViewController: UIViewController {
             print("Show menu")
         case .dismissActionButton:
             
-            mapView.annotations.forEach { annotation in
-                if let anno = annotation as? MKPointAnnotation {
-                    mapView.removeAnnotation(anno)
-                }
-            }
+            removeAnnotationsAndOverlayers()
             
             UIView.animate(withDuration: 0.3) {
                 self.inputActivationView.alpha = 1
@@ -282,7 +280,7 @@ extension HomeViewController {
     
 }
 
-// MARK: - Map Helper Methods
+// MARK: - MapView Helper Methods
 
 private extension HomeViewController {
     
@@ -303,6 +301,36 @@ private extension HomeViewController {
             })
             
             complition(result)
+        }
+    }
+    
+    func generatePolyline(toDestination destination: MKMapItem){
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem.forCurrentLocation()
+        request.destination = destination
+        request.transportType = .automobile
+        
+        let directionRequest = MKDirections(request: request)
+        directionRequest.calculate { response, error in
+            guard let response = response else {return}
+            self.route = response.routes[0]
+            guard let polyline = self.route?.polyline else {return}
+            self.mapView.addOverlay(polyline)
+        }
+    }
+    
+    func removeAnnotationsAndOverlayers(){
+        
+        mapView.annotations.forEach { annotation in
+            if let anno = annotation as? MKPointAnnotation {
+                mapView.removeAnnotation(anno)
+            }
+        }
+        
+        if mapView.overlays.count > 0 {
+            
+            mapView.removeOverlay(mapView.overlays[0])
             
         }
         
@@ -316,17 +344,24 @@ private extension HomeViewController {
 extension HomeViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
         if let annotation = annotation as? DriverAnnotation {
-            
             let view = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
             view.image = UIImage(named: "joker")
             view.setDimensions(height: 35, width: 35)
             return view
-            
         }
-        
         return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let route = self.route {
+            let polyline = route.polyline
+            let lineRenderer = MKPolylineRenderer(polyline: polyline)
+            lineRenderer.strokeColor = .systemBlue
+            lineRenderer.lineWidth = 4
+            return lineRenderer
+        }
+        return MKOverlayRenderer()
     }
     
 }
@@ -420,6 +455,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self.mapView.selectAnnotation(annotation, animated: true)
             
         }
+        
+        let destination = MKMapItem(placemark: selectedPlacemark)
+        generatePolyline(toDestination: destination)
         
     }
     
