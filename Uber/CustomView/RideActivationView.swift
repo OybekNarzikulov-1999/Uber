@@ -9,9 +9,15 @@ import UIKit
 import SnapKit
 import MapKit
 
+protocol RideActionViewDelegate {
+    func uploadTrip(_ view: RideActivationView)
+}
+
 class RideActivationView: UIView {
     
     // MARK: - Properties
+    
+    var delegate: RideActionViewDelegate?
     
     var destination: MKPlacemark? {
         didSet {
@@ -42,7 +48,7 @@ class RideActivationView: UIView {
         
     }()
     
-    private let uberXView: UIView = {
+    private lazy var uberXView: UIView = {
         
         let view = UIView()
         view.backgroundColor = .black
@@ -63,7 +69,7 @@ class RideActivationView: UIView {
         
     }()
     
-    private let uberXLaber: UILabel = {
+    private lazy var uberXLaber: UILabel = {
         
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
@@ -72,7 +78,7 @@ class RideActivationView: UIView {
         
     }()
     
-    private let devider: UIView = {
+    private lazy var devider: UIView = {
         
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -80,10 +86,12 @@ class RideActivationView: UIView {
         
     }()
     
-    private let confirmButton: UIButton = {
+    private lazy var confirmButton: UIButton = {
         
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle( "Confirm Uber X", for: .normal)
+        button.tintColor = .white
+        button.titleLabel?.font = .systemFont(ofSize: 18)
         button.addTarget(self, action: #selector(confirmButtonPressed), for: .touchUpInside)
         button.backgroundColor = .black
         return button
@@ -154,7 +162,7 @@ class RideActivationView: UIView {
     
     
     @objc func confirmButtonPressed(){
-        print("Confirm Button pressed")
+        delegate?.uploadTrip(self)
     }
     
 }

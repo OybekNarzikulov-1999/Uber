@@ -79,9 +79,7 @@ class SignUpViewController: UIViewController {
                     return
                 }
                 
-                guard let uid = result?.user.uid else {
-                    return
-                }
+                guard let uid = result?.user.uid else { return }
                 
                 let values: [String:Any] = ["email": email, "fullname": fullname, "accountType": accountTypeIndex]
                 

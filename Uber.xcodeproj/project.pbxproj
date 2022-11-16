@@ -22,6 +22,7 @@
 		EA7677D4292129EB004E45AC /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D3292129EB004E45AC /* DriverAnnotation.swift */; };
 		EA7792D829151DB500166508 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7792D729151DB500166508 /* GoogleService-Info.plist */; };
 		EA7792FC291A8BA800166508 /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7792FB291A8BA800166508 /* CustomUIView.swift */; };
+		EA8C6B2929252661002F1579 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8C6B2829252661002F1579 /* Trip.swift */; };
 		EABCD1142913D09F0063D848 /* CustomQuestionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */; };
 		EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1152913DF7D0063D848 /* SignUpViewController.swift */; };
 		EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABCD1172913E9A10063D848 /* CustomSegmentedControll.swift */; };
@@ -52,6 +53,7 @@
 		EA7677D3292129EB004E45AC /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
 		EA7792D729151DB500166508 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA7792FB291A8BA800166508 /* CustomUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
+		EA8C6B2829252661002F1579 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		EABCD1132913D09E0063D848 /* CustomQuestionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestionButton.swift; sourceTree = "<group>"; };
 		EABCD1152913DF7D0063D848 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EABCD1172913E9A10063D848 /* CustomSegmentedControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControll.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				EA27DEDC291E8DA800E339DF /* User.swift */,
 				EA7677D3292129EB004E45AC /* DriverAnnotation.swift */,
+				EA8C6B2829252661002F1579 /* Trip.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				EACCA641291E5B5C00BF80C4 /* LocationTableViewCell.swift in Sources */,
 				EA662CAF2923DA2F00904935 /* RideActivationView.swift in Sources */,
 				EA7677D229209574004E45AC /* LocationHandler.swift in Sources */,
+				EA8C6B2929252661002F1579 /* Trip.swift in Sources */,
 				EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */,
 				EA27DEDD291E8DA800E339DF /* User.swift in Sources */,
 				EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */,

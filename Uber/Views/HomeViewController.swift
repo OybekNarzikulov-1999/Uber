@@ -93,6 +93,7 @@ class HomeViewController: UIViewController {
         inputActivationView.delegate = self
         locationInputView.delegate = self
         mapView.delegate = self
+        rideActionView.delegate = self
         
         view.addSubview(mapView)
         view.addSubview(inputActivationView)
@@ -255,9 +256,7 @@ class HomeViewController: UIViewController {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.locationInputView.alpha = 0
-            self.tableView.snp.updateConstraints { make in
-                make.top.equalTo(self.view.snp.bottom)
-            }
+            self.tableView.frame.origin.y = self.view.frame.height
         }, completion: completion)
         
     }
@@ -502,4 +501,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+}
+
+extension HomeViewController: RideActionViewDelegate {
+    
+    func uploadTrip(_ view: RideActivationView) {
+        
+        guard let pickupCoordinates = locationManager?.location?.coordinate else {return}
+        guard let destinationCoordinates = view.destination?.coordinate else {return}
+        
+        Service.shared.uploadTrip(pickupCoordinates, destinationCoordinates: destinationCoordinates) { error, ref in
+            
+            print("DEBUG: Coordinates were uploaded on the database")
+            
+        }
+    }
 }
