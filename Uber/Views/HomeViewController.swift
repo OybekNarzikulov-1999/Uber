@@ -54,6 +54,10 @@ class HomeViewController: UIViewController {
     private var user: User? {
         didSet {
             locationInputView.user = user
+            if user?.accountType == .pessenger {
+                fetchDrivers()
+                configureLocationInputActivationView()
+            }
         }
     }
     
@@ -73,13 +77,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         checkIfUserIsLoggedIn()
         initViews()
         initConstraints()
         enableLocationServices()
         fetchUserData()
-        fetchDrivers()
-        
     }
     
     
@@ -90,21 +93,17 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        inputActivationView.delegate = self
         locationInputView.delegate = self
         mapView.delegate = self
         rideActionView.delegate = self
         
         view.addSubview(mapView)
-        view.addSubview(inputActivationView)
+        
         view.addSubview(tableView)
         view.addSubview(actionButton)
         view.addSubview(rideActionView)
         
-        inputActivationView.alpha = 0
-        UIView.animate(withDuration: 1) {
-            self.inputActivationView.alpha = 1
-        }
+        
         
         view.addSubview(locationInputView)
         locationInputView.alpha = 0
@@ -115,13 +114,6 @@ class HomeViewController: UIViewController {
         mapView.frame = view.frame
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        
-        inputActivationView.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).offset(-64)
-            make.height.equalTo(50)
-            make.top.equalTo(actionButton.snp.bottom).offset(28)
-        }
         
         locationInputView.snp.makeConstraints { make in
             make.left.right.top.equalTo(0)
@@ -164,7 +156,6 @@ class HomeViewController: UIViewController {
             UIView.animate(withDuration: 0.3) {
                 self.inputActivationView.alpha = 1
                 self.configureActionButton(config: .showMenu)
-                
                 self.presentRideActionView(shouldShow: false)
                 
             }
@@ -173,6 +164,25 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Helper Methods
+    
+    func configureLocationInputActivationView(){
+        
+        inputActivationView.delegate = self
+        view.addSubview(inputActivationView)
+        
+        inputActivationView.alpha = 0
+        UIView.animate(withDuration: 1) {
+            self.inputActivationView.alpha = 1
+        }
+        
+        inputActivationView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).offset(-64)
+            make.height.equalTo(50)
+            make.top.equalTo(actionButton.snp.bottom).offset(28)
+        }
+        
+    }
     
     fileprivate func configureActionButton(config: actionButtonConfiguration){
         
@@ -193,6 +203,7 @@ class HomeViewController: UIViewController {
     
     
     func fetchDrivers(){
+        
         guard let location = locationManager?.location else {return}
         Service.shared.fetchDrivers(location: location) { driver in
             guard let coordinate = driver.location?.coordinate else {return}
