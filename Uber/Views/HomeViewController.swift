@@ -57,7 +57,18 @@ class HomeViewController: UIViewController {
             if user?.accountType == .pessenger {
                 fetchDrivers()
                 configureLocationInputActivationView()
+            } else {
+                observeTrips()
             }
+        }
+    }
+    
+    private var trip: Trip? {
+        didSet {
+            guard let trip = trip else {return}
+            let controller = PickupViewController(trip: trip)
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -77,7 +88,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         checkIfUserIsLoggedIn()
         initViews()
         initConstraints()
@@ -232,6 +242,12 @@ class HomeViewController: UIViewController {
         guard let currentUid = Auth.auth().currentUser?.uid else {return}
         Service.shared.fetchUserData(uid: currentUid) { user in
             self.user = user
+        }
+    }
+    
+    func observeTrips(){
+        Service.shared.observeTrips { trip in
+            self.trip = trip
         }
     }
     
