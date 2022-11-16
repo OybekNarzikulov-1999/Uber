@@ -73,7 +73,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         checkIfUserIsLoggedIn()
         initViews()
         initConstraints()
@@ -256,23 +255,38 @@ class HomeViewController: UIViewController {
         
         UIView.animate(withDuration: 0.3, animations: {
             self.locationInputView.alpha = 0
-            self.tableView.frame.origin.y = self.view.frame.height
+            self.tableView.snp.updateConstraints { make in
+                make.top.equalTo(self.view.snp.bottom)
+            }
         }, completion: completion)
         
     }
     
     func presentRideActionView(shouldShow: Bool, destination: MKPlacemark? = nil){
         
-        let yOrigin = shouldShow ? self.view.frame.height - 300 : self.view.frame.height
-        
-        if shouldShow {
+        if shouldShow == true {
+            
             guard let destination = destination else {return}
             rideActionView.destination = destination
+            
+            UIView.animate(withDuration: 0.3) {
+                
+                self.rideActionView.snp.updateConstraints { make in
+                    make.top.equalTo(self.view.snp.bottom).offset(-300)
+                }
+                
+            }
+            
+        } else if shouldShow == false {
+            
+            UIView.animate(withDuration: 0.3) {
+                self.rideActionView.snp.updateConstraints { make in
+                    make.top.equalTo(self.view.snp.bottom)
+                }
+            }
+            
         }
         
-        UIView.animate(withDuration: 0.3) {
-            self.rideActionView.frame.origin.y = yOrigin
-        }
     }
     
 }
@@ -482,7 +496,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let annotations = self.mapView.annotations.filter({ !$0.isKind(of: DriverAnnotation.self) })
             
-            self.mapView.showAnnotations(annotations, animated: true)
+            self.mapView.zoomToFit(annotations: annotations)
             
             self.presentRideActionView(shouldShow: true, destination: selectedPlacemark)
         }

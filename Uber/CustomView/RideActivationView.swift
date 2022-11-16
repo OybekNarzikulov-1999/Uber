@@ -84,7 +84,7 @@ class RideActivationView: UIView {
         
         let button = UIButton()
         button.setTitle( "Confirm Uber X", for: .normal)
-        button.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(confirmButtonPressed), for: .touchUpInside)
         button.backgroundColor = .black
         return button
     }()
@@ -153,7 +153,7 @@ class RideActivationView: UIView {
     }
     
     
-    @objc func actionButtonPressed(){
+    @objc func confirmButtonPressed(){
         print("Confirm Button pressed")
     }
     
