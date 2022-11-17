@@ -20,14 +20,14 @@ struct Trip {
         
         self.pessengerUid = pessengerUid
         
-        if let pickupCoordinate = dictionary["pickupCoordinate"] as? NSArray {
+        if let pickupCoordinate = dictionary["pickupCoordinates"] as? NSArray {
             guard let lat = pickupCoordinate[0] as? CLLocationDegrees else {return}
             guard let long = pickupCoordinate[1] as? CLLocationDegrees else {return}
             
             self.pickupCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         }
         
-        if let destinationCoordinate = dictionary["destinationCoordinate"] as? NSArray {
+        if let destinationCoordinate = dictionary["destinationCoordinates"] as? NSArray {
             guard let lat = destinationCoordinate[0] as? CLLocationDegrees else {return}
             guard let long = destinationCoordinate[1] as? CLLocationDegrees else {return}
             

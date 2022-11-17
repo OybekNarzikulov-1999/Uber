@@ -13,11 +13,57 @@ protocol RideActionViewDelegate {
     func uploadTrip(_ view: RideActivationView)
 }
 
+enum RideActionViewConfiguration {
+    case requestRide
+    case tripAccepted
+    case pickupPassenger
+    case tripInProgress
+    case endTrip
+    
+    init(){
+        self = .requestRide
+    }
+}
+
+enum ButtonAction: CustomStringConvertible {
+    
+    case requestRide
+    case cancel
+    case getDirections
+    case pickup
+    case dropOff
+    
+    var description: String {
+        switch self {
+        case .requestRide:
+            return "CONFIRM UBERX"
+        case .cancel:
+            return "CANCEL RIDE"
+        case .getDirections:
+            return "GET DIRECTIONS"
+        case .pickup:
+            return "PICKUP PASSENGER"
+        case .dropOff:
+            return "DROP OFF PASSENGER"
+        }
+    }
+    
+    init() {
+        self = .requestRide
+    }
+}
+
+
 class RideActivationView: UIView {
     
     // MARK: - Properties
     
+    var config = RideActionViewConfiguration()
+    var buttonAction = ButtonAction()
+    
     var delegate: RideActionViewDelegate?
+    
+    var user: User?
     
     var destination: MKPlacemark? {
         didSet {
@@ -27,22 +73,20 @@ class RideActivationView: UIView {
     }
     
     
-    let addressTitle: UILabel = {
+    lazy var addressTitle: UILabel = {
         
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 18)
-        label.text = "Test Address Title"
         label.textAlignment = .center
         return label
         
     }()
     
-    let addressDescription: UILabel = {
+    lazy var addressDescription: UILabel = {
        
         let label = UILabel()
         label.textColor = .darkGray
         label.font = .systemFont(ofSize: 16)
-        label.text = "Amir Temur Street"
         label.textAlignment = .center
         return label
         
@@ -54,13 +98,9 @@ class RideActivationView: UIView {
         view.backgroundColor = .black
         view.layer.cornerRadius = 60/2
         
-        let label = UILabel()
-        label.textColor = .white
-        label.font = .boldSystemFont(ofSize: 24)
-        label.text = "X"
-        view.addSubview(label)
+        view.addSubview(infoViewLabel)
         
-        label.snp.makeConstraints { make in
+        infoViewLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view)
             make.centerY.equalTo(view)
         }
@@ -69,7 +109,17 @@ class RideActivationView: UIView {
         
     }()
     
-    private lazy var uberXLaber: UILabel = {
+    private lazy var infoViewLabel: UILabel = {
+       
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 24)
+        label.text = "X"
+        return label
+        
+    }()
+    
+    private lazy var uberXLabel: UILabel = {
         
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 20)
@@ -125,7 +175,7 @@ class RideActivationView: UIView {
         
         self.addSubview(stackView)
         self.addSubview(uberXView)
-        self.addSubview(uberXLaber)
+        self.addSubview(uberXLabel)
         self.addSubview(devider)
         self.addSubview(confirmButton)
         
@@ -140,13 +190,13 @@ class RideActivationView: UIView {
             make.width.height.equalTo(60)
         }
         
-        uberXLaber.snp.makeConstraints { make in
+        uberXLabel.snp.makeConstraints { make in
             make.centerX.equalTo(self)
             make.top.equalTo(uberXView.snp.bottom).offset(8)
         }
         
         devider.snp.makeConstraints { make in
-            make.top.equalTo(uberXLaber.snp.bottom).offset(8)
+            make.top.equalTo(uberXLabel.snp.bottom).offset(8)
             make.left.right.equalTo(0)
             make.height.equalTo(0.75)
         }
@@ -162,7 +212,79 @@ class RideActivationView: UIView {
     
     
     @objc func confirmButtonPressed(){
-        delegate?.uploadTrip(self)
+        
+        switch buttonAction {
+        case .requestRide:
+            delegate?.uploadTrip(self)
+        case .cancel:
+            print("DEBUG: Handle Cancel...")
+        case .getDirections:
+            print("DEBUG: Handle Get Direction...")
+        case .pickup:
+            print("DEBUG: Handle Pickup...")
+        case .dropOff:
+            print("DEBUG: Handle Drop Off...")
+        }
+        
     }
     
+    //MARK: - Helper Methods
+    
+    func configureUI(withConfig config: RideActionViewConfiguration){
+        switch config {
+        case .requestRide:
+            
+            buttonAction = .requestRide
+            confirmButton.setTitle(buttonAction.description, for: .normal)
+            
+        case .tripAccepted:
+            
+            guard let user = user else {return}
+            
+            if user.accountType == .pessenger {
+                addressTitle.text = "En Route To Passenger"
+                buttonAction = .getDirections
+                confirmButton.setTitle(buttonAction.description, for: .normal)
+            } else {
+                addressTitle.text = "Driver En Route"
+                buttonAction = .cancel
+                confirmButton.setTitle(buttonAction.description, for: .normal)
+                addressDescription.text = nil
+            }
+            
+            infoViewLabel.text = String(user.name.first ?? "X")
+            uberXLabel.text = user.name
+            
+        case .pickupPassenger:
+            addressTitle.text = "Arrived at Passenger Location"
+            buttonAction = .pickup
+            confirmButton.setTitle(buttonAction.description, for: .normal)
+        case .tripInProgress:
+            
+            guard let user = user else {return}
+            
+            if user.accountType == .driver {
+                confirmButton.setTitle("TRIP IN PROGRESS", for: .normal)
+                confirmButton.isEnabled = false
+            } else {
+                buttonAction = .getDirections
+                confirmButton.setTitle(buttonAction.description, for: .normal)
+            }
+            
+            addressTitle.text = "En Route to Destination"
+            
+        case .endTrip:
+            
+            guard let user = user else {return}
+            
+            if user.accountType == .driver {
+                confirmButton.setTitle("ARRIVED AT DESTINATION", for: .normal)
+                confirmButton.isEnabled = false
+            } else {
+                buttonAction = .dropOff
+                confirmButton.setTitle(buttonAction.description, for: .normal)
+            }
+            
+        }
+    }
 }

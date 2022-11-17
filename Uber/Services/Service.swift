@@ -80,4 +80,27 @@ struct Service {
         }
     }
     
+    func acceptTrip(trip: Trip, completion: @escaping(Error?, DatabaseReference) -> Void){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        let values = ["driverUid": uid, "state": TripState.accepted.rawValue] as [String:Any]
+        
+        REF_TRIPS.child(trip.pessengerUid).updateChildValues(values, withCompletionBlock: completion)
+        
+    }
+    
+    func observeCurrentTrip(completion: @escaping(Trip) -> Void){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        REF_TRIPS.child(uid).observe(.value, with: { snapshot in
+            guard let dictionary = snapshot.value as? [String: Any] else {return}
+            let uid = snapshot.key
+            let trip = Trip(pessengerUid: uid, dictionary: dictionary)
+            
+            completion(trip)
+        })
+    }
+    
 }

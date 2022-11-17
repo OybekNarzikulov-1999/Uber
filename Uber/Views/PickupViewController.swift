@@ -9,9 +9,19 @@ import UIKit
 import MapKit
 import SnapKit
 
+
+protocol PickupViewControllerDelegate {
+    
+    func didAcceptTrip(_ trip: Trip)
+    
+}
+
+
 class PickupViewController: UIViewController {
     
     //MARK: - Properties
+    
+    var delegate: PickupViewControllerDelegate?
     
     let trip: Trip
     
@@ -49,6 +59,7 @@ class PickupViewController: UIViewController {
         button.backgroundColor = .white
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(acceptTripButtonPressed), for: .touchUpInside)
         return button
         
     }()
@@ -72,6 +83,7 @@ class PickupViewController: UIViewController {
 
         initViews()
         initConstraints()
+        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -85,6 +97,7 @@ class PickupViewController: UIViewController {
         view.addSubview(mapView)
         view.addSubview(pickupLabel)
         view.addSubview(acceptTripButton)
+        configureMapView()
     }
     
     func initConstraints(){
@@ -115,10 +128,29 @@ class PickupViewController: UIViewController {
         
     }
     
+    func configureMapView(){
+        
+        let region = MKCoordinateRegion(center: trip.pickupCoordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+        mapView.setRegion(region, animated: false)
+        
+        let anno = MKPointAnnotation()
+        anno.coordinate = trip.pickupCoordinate
+        mapView.addAnnotation(anno)
+        mapView.selectAnnotation(anno, animated: true)
+        
+        
+    }
+    
     //MARK: - Selectors
     
     @objc func cancelButtonPressed(){
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func acceptTripButtonPressed(){
+        Service.shared.acceptTrip(trip: trip) { error, ref in
+            self.delegate?.didAcceptTrip(self.trip)
+        }
     }
     
     
