@@ -11,11 +11,14 @@ import MapKit
 
 protocol RideActionViewDelegate {
     func uploadTrip(_ view: RideActivationView)
+    func cancelTrip()
+    func pickupPassenger()
 }
 
 enum RideActionViewConfiguration {
     case requestRide
     case tripAccepted
+    case driverArrived
     case pickupPassenger
     case tripInProgress
     case endTrip
@@ -58,12 +61,18 @@ class RideActivationView: UIView {
     
     // MARK: - Properties
     
-    var config = RideActionViewConfiguration()
+    
     var buttonAction = ButtonAction()
     
     var delegate: RideActionViewDelegate?
     
     var user: User?
+    
+    var config = RideActionViewConfiguration() {
+        didSet{
+            configureUI(withConfig: config)
+        }
+    }
     
     var destination: MKPlacemark? {
         didSet {
@@ -217,11 +226,11 @@ class RideActivationView: UIView {
         case .requestRide:
             delegate?.uploadTrip(self)
         case .cancel:
-            print("DEBUG: Handle Cancel...")
+            delegate?.cancelTrip()
         case .getDirections:
             print("DEBUG: Handle Get Direction...")
         case .pickup:
-            print("DEBUG: Handle Pickup...")
+            delegate?.pickupPassenger()
         case .dropOff:
             print("DEBUG: Handle Drop Off...")
         }
@@ -230,7 +239,7 @@ class RideActivationView: UIView {
     
     //MARK: - Helper Methods
     
-    func configureUI(withConfig config: RideActionViewConfiguration){
+    private func configureUI(withConfig config: RideActionViewConfiguration){
         switch config {
         case .requestRide:
             
@@ -254,6 +263,14 @@ class RideActivationView: UIView {
             
             infoViewLabel.text = String(user.name.first ?? "X")
             uberXLabel.text = user.name
+            
+        case .driverArrived:
+            guard let user = user else {return}
+            
+            if user.accountType == .driver {
+                addressTitle.text = "Driver has arrived"
+                addressDescription.text = "Please meet driver at pickup location"
+            }
             
         case .pickupPassenger:
             addressTitle.text = "Arrived at Passenger Location"
@@ -285,6 +302,7 @@ class RideActivationView: UIView {
                 confirmButton.setTitle(buttonAction.description, for: .normal)
             }
             
+    
         }
     }
 }

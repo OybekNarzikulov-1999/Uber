@@ -80,6 +80,12 @@ struct Service {
         }
     }
     
+    func observeTripCancelled(trip: Trip, completion: @escaping() -> Void){
+        REF_TRIPS.child(trip.pessengerUid).observeSingleEvent(of: .childRemoved) { snapshot in
+            completion()
+        }
+    }
+    
     func acceptTrip(trip: Trip, completion: @escaping(Error?, DatabaseReference) -> Void){
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -101,6 +107,26 @@ struct Service {
             
             completion(trip)
         })
+    }
+    
+    func cancelTrip(completion: @escaping(Error?, DatabaseReference) -> Void){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        REF_TRIPS.child(uid).removeValue(completionBlock: completion)
+        
+    }
+    
+    func updateDriverLocation(location: CLLocation){
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+        geofire.setLocation(location, forKey: uid)
+        
+    }
+    
+    func updateTripState(trip: Trip, state: TripState, completion: @escaping(Error?, DatabaseReference) -> Void){
+        REF_TRIPS.child(trip.pessengerUid).child("state").setValue(state.rawValue, withCompletionBlock: completion)
     }
     
 }

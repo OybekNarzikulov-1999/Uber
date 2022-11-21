@@ -65,9 +65,24 @@ extension MKMapView {
         
     }
     
+    func addAnnotationAndSelect(forCoordinate coordinate: CLLocationCoordinate2D){
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        addAnnotation(annotation)
+        selectAnnotation(annotation, animated: true)
+    }
+    
 }
 
 extension UIViewController {
+    
+    func presentAlertController(withTitle title: String, message: String){
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     func shouldPresentLoadingView(_ present: Bool, message: String? = nil){
         
