@@ -13,6 +13,7 @@ protocol RideActionViewDelegate {
     func uploadTrip(_ view: RideActivationView)
     func cancelTrip()
     func pickupPassenger()
+    func dropOffPassenger()
 }
 
 enum RideActionViewConfiguration {
@@ -232,7 +233,7 @@ class RideActivationView: UIView {
         case .pickup:
             delegate?.pickupPassenger()
         case .dropOff:
-            print("DEBUG: Handle Drop Off...")
+            delegate?.dropOffPassenger()
         }
         
     }
@@ -270,6 +271,8 @@ class RideActivationView: UIView {
             if user.accountType == .driver {
                 addressTitle.text = "Driver has arrived"
                 addressDescription.text = "Please meet driver at pickup location"
+                confirmButton.setTitle("Trip in Progress", for: .normal)
+                confirmButton.isEnabled = false
             }
             
         case .pickupPassenger:

@@ -225,7 +225,8 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - API
-    
+
+    // This method observes for user
     func observeCurrentTrip(){
         Service.shared.observeCurrentTrip { trip in
             self.trip = trip
@@ -248,8 +249,16 @@ class HomeViewController: UIViewController {
                 self.rideActionView.config = .driverArrived
             case .inprogress:
                 self.rideActionView.config = .tripInProgress
+            case .arrivedAtDestination:
+                self.rideActionView.config = .endTrip
             case .completed:
-                break
+                Service.shared.deleteTrip { error, ref in
+                    self.presentRideActionView(shouldShow: false)
+                    self.centerMapOnUserLocation()
+                    self.configureActionButton(config: .showMenu)
+                    self.inputActivationView.alpha = 1
+                    self.presentAlertController(withTitle: "Trip Completed", message: "We hope you enjoyed you'r trip")
+                }
             }
         }
     }
@@ -294,6 +303,8 @@ class HomeViewController: UIViewController {
             self.generatePolyline(toDestination: mapItem)
             
             self.setCustomRegion(withType: .destination, coordinates: trip.destinationCoordinate)
+            
+            self.mapView.zoomToFit(annotations: self.mapView.annotations)
             
         }
     }
@@ -400,11 +411,19 @@ extension HomeViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("DEBUG: Driver did enter passenger region")
-        
         guard let trip = trip else {return}
-        Service.shared.updateTripState(trip: trip, state: .driverArrived) { error, ref in
-            self.rideActionView.config = .pickupPassenger
+        
+        if region.identifier == AnnotationType.pickup.rawValue {
+            Service.shared.updateTripState(trip: trip, state: .driverArrived) { error, ref in
+                self.rideActionView.config = .pickupPassenger
+            }
+        }
+        
+        if region.identifier == AnnotationType.destination.rawValue {
+            print("DEBUG: Did start monitoring destination region \(region)")
+            Service.shared.updateTripState(trip: trip, state: .arrivedAtDestination) { error, ref in
+                self.rideActionView.config = .endTrip
+            }
         }
     }
     
@@ -689,7 +708,7 @@ extension HomeViewController: RideActionViewDelegate {
     
     func cancelTrip() {
         
-        Service.shared.cancelTrip { error, ref in
+        Service.shared.deleteTrip { error, ref in
             if let error = error {
                 print("Erorr while deleting data from database\(error.localizedDescription)")
                 return
@@ -710,6 +729,14 @@ extension HomeViewController: RideActionViewDelegate {
         startTrip()
     }
     
+    func dropOffPassenger() {
+        guard let trip = self.trip else {return}
+        Service.shared.updateTripState(trip: trip, state: .completed) { error, ref in
+            self.removeAnnotationsAndOverlayers()
+            self.centerMapOnUserLocation()
+            self.presentRideActionView(shouldShow: false)
+        }
+    }
 }
 
 // MARK: - PickupViewControllerDelegate
