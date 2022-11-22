@@ -27,6 +27,11 @@ private enum AnnotationType: String {
     case destination
 }
 
+
+protocol HomeViewControllerDelegate {
+    func handleMenuToggle()
+}
+
 class HomeViewController: UIViewController {
     
     //MARK: - Properties
@@ -45,6 +50,8 @@ class HomeViewController: UIViewController {
     
     private var route: MKRoute?
     
+    var delegate: HomeViewControllerDelegate?
+    
     private lazy var actionButton: UIButton = {
         
         let button = UIButton(type: .system)
@@ -56,7 +63,7 @@ class HomeViewController: UIViewController {
     
     private var searchResults = [MKPlacemark]()
     
-    private var user: User? {
+    var user: User? {
         didSet {
             locationInputView.user = user
             if user?.accountType == .pessenger {
@@ -100,12 +107,9 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkIfUserIsLoggedIn()
         initViews()
         initConstraints()
         enableLocationServices()
-        fetchUserData()
-        
     }
     
     
@@ -170,7 +174,7 @@ class HomeViewController: UIViewController {
         
         switch actionButtonConfig {
         case .showMenu:
-            print("Show menu")
+            delegate?.handleMenuToggle()
         case .dismissActionButton:
             
             removeAnnotationsAndOverlayers()
@@ -327,40 +331,6 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Shared API
-    
-    func fetchUserData(){
-        guard let currentUid = Auth.auth().currentUser?.uid else {return}
-        Service.shared.fetchUserData(uid: currentUid) { user in
-            self.user = user
-        }
-    }
-    
-    func checkIfUserIsLoggedIn() {
-        
-        if Auth.auth().currentUser?.uid == nil {
-            DispatchQueue.main.async {
-                let loginVC = UINavigationController(rootViewController: LoginViewController())
-                loginVC.modalPresentationStyle = .fullScreen
-                self.present(loginVC, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    func signOut(){
-        
-        do {
-            try Auth.auth().signOut()
-            
-            DispatchQueue.main.async {
-                let loginVC = UINavigationController(rootViewController: LoginViewController())
-                loginVC.modalPresentationStyle = .fullScreen
-                self.present(loginVC, animated: true, completion: nil)
-            }
-            
-        } catch {
-            print("Error signing out")
-        }
-    }
     
     // MARK: - Helper Methods
     

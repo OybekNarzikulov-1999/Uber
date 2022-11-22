@@ -17,6 +17,9 @@
 		EA2D70482912AA47007004B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2D70472912AA47007004B5 /* Assets.xcassets */; };
 		EA2D704B2912AA47007004B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA2D70492912AA47007004B5 /* LaunchScreen.storyboard */; };
 		EA2D70582912AA9B007004B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D70572912AA9B007004B5 /* LoginViewController.swift */; };
+		EA553D45292CCFB1008867A9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D44292CCFB1008867A9 /* ContainerViewController.swift */; };
+		EA553D47292CCFCB008867A9 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D46292CCFCB008867A9 /* MenuTableViewController.swift */; };
+		EA553D49292CD9B9008867A9 /* MenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D48292CD9B9008867A9 /* MenuHeader.swift */; };
 		EA662CAF2923DA2F00904935 /* RideActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA662CAE2923DA2F00904935 /* RideActivationView.swift */; };
 		EA7677D229209574004E45AC /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D129209574004E45AC /* LocationHandler.swift */; };
 		EA7677D4292129EB004E45AC /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D3292129EB004E45AC /* DriverAnnotation.swift */; };
@@ -49,6 +52,9 @@
 		EA2D704A2912AA47007004B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA2D704C2912AA47007004B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA2D70572912AA9B007004B5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EA553D44292CCFB1008867A9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		EA553D46292CCFCB008867A9 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		EA553D48292CD9B9008867A9 /* MenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeader.swift; sourceTree = "<group>"; };
 		EA662CAE2923DA2F00904935 /* RideActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideActivationView.swift; sourceTree = "<group>"; };
 		EA7677D129209574004E45AC /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		EA7677D3292129EB004E45AC /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
@@ -120,7 +126,6 @@
 				EA2D70402912AA45007004B5 /* SceneDelegate.swift */,
 				EABDD20A2913BC4800E3C036 /* CustomView */,
 				EA2D70562912AA56007004B5 /* Models */,
-				EA2D70552912AA54007004B5 /* Views */,
 				EA2D70542912AA51007004B5 /* Controllers */,
 				EA2D70532912AA4C007004B5 /* Services */,
 				EA2D70522912AA4A007004B5 /* Utils */,
@@ -153,19 +158,12 @@
 		EA2D70542912AA51007004B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		EA2D70552912AA54007004B5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				EA2D70572912AA9B007004B5 /* LoginViewController.swift */,
-				EABCD1152913DF7D0063D848 /* SignUpViewController.swift */,
+				EA553D43292CCDDF008867A9 /* SideMenu */,
+				EA553D42292CCDCA008867A9 /* Authentication */,
 				EA228075291BC9CB005C8357 /* HomeViewController.swift */,
 				EA8C6B2A292542C7002F1579 /* PickupViewController.swift */,
 			);
-			path = Views;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		EA2D70562912AA56007004B5 /* Models */ = {
@@ -176,6 +174,24 @@
 				EA8C6B2829252661002F1579 /* Trip.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		EA553D42292CCDCA008867A9 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D70572912AA9B007004B5 /* LoginViewController.swift */,
+				EABCD1152913DF7D0063D848 /* SignUpViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		EA553D43292CCDDF008867A9 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				EA553D44292CCFB1008867A9 /* ContainerViewController.swift */,
+				EA553D46292CCFCB008867A9 /* MenuTableViewController.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		EABDD20A2913BC4800E3C036 /* CustomView */ = {
@@ -189,6 +205,7 @@
 				EA228077291BF25E005C8357 /* LocationInputActivationView.swift */,
 				EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */,
 				EA662CAE2923DA2F00904935 /* RideActivationView.swift */,
+				EA553D48292CD9B9008867A9 /* MenuHeader.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -319,8 +336,10 @@
 			files = (
 				EA8C6B2B292542C7002F1579 /* PickupViewController.swift in Sources */,
 				EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */,
+				EA553D47292CCFCB008867A9 /* MenuTableViewController.swift in Sources */,
 				EACCA643291E799600BF80C4 /* Service.swift in Sources */,
 				EABCD11A29140B910063D848 /* CustomButtonWithBackground.swift in Sources */,
+				EA553D49292CD9B9008867A9 /* MenuHeader.swift in Sources */,
 				EA7677D4292129EB004E45AC /* DriverAnnotation.swift in Sources */,
 				EABCD1162913DF7D0063D848 /* SignUpViewController.swift in Sources */,
 				EABCD1182913E9A10063D848 /* CustomSegmentedControll.swift in Sources */,
@@ -333,6 +352,7 @@
 				EA27DEDD291E8DA800E339DF /* User.swift in Sources */,
 				EACCA63E291D1D8E00BF80C4 /* LocationInputView.swift in Sources */,
 				EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */,
+				EA553D45292CCFB1008867A9 /* ContainerViewController.swift in Sources */,
 				EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */,
 				EA7792FC291A8BA800166508 /* CustomUIView.swift in Sources */,
 				EACCA63C291D1BF400BF80C4 /* Extentions.swift in Sources */,
