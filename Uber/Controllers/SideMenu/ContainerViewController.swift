@@ -141,7 +141,7 @@ class ContainerViewController: UIViewController {
     }
     
     func animateStatusBar(){
-        UIView.animate(withDuration: 0,5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
@@ -167,7 +167,12 @@ extension ContainerViewController: MenuTableViewControllerDelegate {
             case .yourTrips:
                 break
             case .settings:
-                break
+                guard let user = self.user else {return}
+                let controller = SettingsTableViewController(user: user)
+                let nav = UINavigationController(rootViewController: controller)
+                nav.isModalInPresentation = true
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true)
             case .logOut:
                 
                 let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)

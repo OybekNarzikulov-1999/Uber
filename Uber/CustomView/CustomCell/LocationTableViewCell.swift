@@ -22,6 +22,13 @@ class LocationTableViewCell: UITableViewCell {
         
     }
     
+    var type: LocationType? {
+        didSet{
+            titleLabel.text = type?.description
+            addressLabel.text = type?.subtitle
+        }
+    }
+    
     
     lazy var titleLabel: UILabel = {
         

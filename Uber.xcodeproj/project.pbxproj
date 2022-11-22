@@ -20,6 +20,8 @@
 		EA553D45292CCFB1008867A9 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D44292CCFB1008867A9 /* ContainerViewController.swift */; };
 		EA553D47292CCFCB008867A9 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D46292CCFCB008867A9 /* MenuTableViewController.swift */; };
 		EA553D49292CD9B9008867A9 /* MenuHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D48292CD9B9008867A9 /* MenuHeader.swift */; };
+		EA553D4B292D2494008867A9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D4A292D2494008867A9 /* SettingsTableViewController.swift */; };
+		EA553D4D292D37DA008867A9 /* UserInfoHeardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA553D4C292D37DA008867A9 /* UserInfoHeardView.swift */; };
 		EA662CAF2923DA2F00904935 /* RideActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA662CAE2923DA2F00904935 /* RideActivationView.swift */; };
 		EA7677D229209574004E45AC /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D129209574004E45AC /* LocationHandler.swift */; };
 		EA7677D4292129EB004E45AC /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7677D3292129EB004E45AC /* DriverAnnotation.swift */; };
@@ -55,6 +57,8 @@
 		EA553D44292CCFB1008867A9 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		EA553D46292CCFCB008867A9 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		EA553D48292CD9B9008867A9 /* MenuHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeader.swift; sourceTree = "<group>"; };
+		EA553D4A292D2494008867A9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		EA553D4C292D37DA008867A9 /* UserInfoHeardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeardView.swift; sourceTree = "<group>"; };
 		EA662CAE2923DA2F00904935 /* RideActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideActivationView.swift; sourceTree = "<group>"; };
 		EA7677D129209574004E45AC /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		EA7677D3292129EB004E45AC /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				EA553D42292CCDCA008867A9 /* Authentication */,
 				EA228075291BC9CB005C8357 /* HomeViewController.swift */,
 				EA8C6B2A292542C7002F1579 /* PickupViewController.swift */,
+				EA553D4A292D2494008867A9 /* SettingsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				EACCA63D291D1D8E00BF80C4 /* LocationInputView.swift */,
 				EA662CAE2923DA2F00904935 /* RideActivationView.swift */,
 				EA553D48292CD9B9008867A9 /* MenuHeader.swift */,
+				EA553D4C292D37DA008867A9 /* UserInfoHeardView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -354,7 +360,9 @@
 				EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */,
 				EA553D45292CCFB1008867A9 /* ContainerViewController.swift in Sources */,
 				EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */,
+				EA553D4B292D2494008867A9 /* SettingsTableViewController.swift in Sources */,
 				EA7792FC291A8BA800166508 /* CustomUIView.swift in Sources */,
+				EA553D4D292D37DA008867A9 /* UserInfoHeardView.swift in Sources */,
 				EACCA63C291D1BF400BF80C4 /* Extentions.swift in Sources */,
 				EA2D70412912AA45007004B5 /* SceneDelegate.swift in Sources */,
 			);
