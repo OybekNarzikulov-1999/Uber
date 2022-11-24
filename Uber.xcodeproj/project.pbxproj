@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0DDB46D5EF89FAA334A52190 /* Pods_Uber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F644803F25C9C83E9EFB2E /* Pods_Uber.framework */; };
 		EA12EE08292F8ED7008446A3 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA12EE07292F8ED7008446A3 /* AddLocationTableViewController.swift */; };
+		EA12EE0A292FBF06008446A3 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA12EE09292FBF06008446A3 /* CircularProgressView.swift */; };
 		EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228075291BC9CB005C8357 /* HomeViewController.swift */; };
 		EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228077291BF25E005C8357 /* LocationInputActivationView.swift */; };
 		EA27DEDD291E8DA800E339DF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA27DEDC291E8DA800E339DF /* User.swift */; };
@@ -45,6 +46,7 @@
 		71EE836681FFCB55A9E7BFD8 /* Pods-Uber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.debug.xcconfig"; path = "Target Support Files/Pods-Uber/Pods-Uber.debug.xcconfig"; sourceTree = "<group>"; };
 		DE292FB4A24C948506CC82DE /* Pods-Uber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.release.xcconfig"; path = "Target Support Files/Pods-Uber/Pods-Uber.release.xcconfig"; sourceTree = "<group>"; };
 		EA12EE07292F8ED7008446A3 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
+		EA12EE09292FBF06008446A3 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		EA228075291BC9CB005C8357 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EA228077291BF25E005C8357 /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
 		EA27DEDC291E8DA800E339DF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				EA662CAE2923DA2F00904935 /* RideActivationView.swift */,
 				EA553D48292CD9B9008867A9 /* MenuHeader.swift */,
 				EA553D4C292D37DA008867A9 /* UserInfoHeardView.swift */,
+				EA12EE09292FBF06008446A3 /* CircularProgressView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8C6B2B292542C7002F1579 /* PickupViewController.swift in Sources */,
+				EA12EE0A292FBF06008446A3 /* CircularProgressView.swift in Sources */,
 				EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */,
 				EA553D47292CCFCB008867A9 /* MenuTableViewController.swift in Sources */,
 				EACCA643291E799600BF80C4 /* Service.swift in Sources */,

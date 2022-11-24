@@ -25,6 +25,22 @@ class PickupViewController: UIViewController {
     
     let trip: Trip
     
+    private lazy var circularProgressView: CircularProgressView = {
+       
+        let frame = CGRect(x: 0, y: 0, width: 360, height: 360)
+        let cp = CircularProgressView(frame: frame)
+        
+        cp.addSubview(mapView)
+        mapView.layer.cornerRadius = 268/2
+        mapView.snp.makeConstraints { make in
+            make.centerX.equalTo(cp)
+            make.centerY.equalTo(cp).offset(32)
+            make.height.width.equalTo(268)
+        }
+        return cp
+        
+    }()
+    
     private lazy var dismissButton: UIButton = {
        
         let button = UIButton()
@@ -34,13 +50,7 @@ class PickupViewController: UIViewController {
         
     }()
     
-    private lazy var mapView: MKMapView = {
-    
-        let mapView = MKMapView()
-        mapView.layer.cornerRadius = 135
-        return mapView
-        
-    }()
+    private lazy var mapView = MKMapView()
     
     private lazy var pickupLabel: UILabel = {
         
@@ -94,10 +104,12 @@ class PickupViewController: UIViewController {
     
     func initViews(){
         view.addSubview(dismissButton)
-        view.addSubview(mapView)
         view.addSubview(pickupLabel)
         view.addSubview(acceptTripButton)
+        view.addSubview(circularProgressView)
         configureMapView()
+        
+        self.perform(#selector(animateProgress), with: nil, afterDelay: 0.5)
     }
     
     func initConstraints(){
@@ -108,15 +120,22 @@ class PickupViewController: UIViewController {
             make.height.width.equalTo(18)
         }
         
-        mapView.snp.makeConstraints { make in
+        circularProgressView.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.centerY.equalTo(view).offset(-200)
-            make.height.width.equalTo(270)
+            make.centerY.equalTo(view).offset(-150)
+            make.height.width.equalTo(360)
+            
         }
+        
+//        mapView.snp.makeConstraints { make in
+//            make.centerX.equalTo(view)
+//            make.centerY.equalTo(view).offset(-200)
+//            make.height.width.equalTo(270)
+//        }
         
         pickupLabel.snp.makeConstraints { make in
             make.centerX.equalTo(view)
-            make.top.equalTo(mapView.snp.bottom).offset(60)
+            make.top.equalTo(circularProgressView.snp.bottom).offset(60)
         }
         
         acceptTripButton.snp.makeConstraints { make in
@@ -141,6 +160,15 @@ class PickupViewController: UIViewController {
     
     @objc func cancelButtonPressed(){
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func animateProgress(){
+        circularProgressView.animatePulsatingLayer()
+        circularProgressView.setProgressWithAnimation(duration: 5, value: 0) {
+            DriverService.shared.updateTripState(trip: self.trip, state: .denied) { error, ref in
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     @objc func acceptTripButtonPressed(){

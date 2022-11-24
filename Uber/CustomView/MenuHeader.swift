@@ -14,13 +14,29 @@ class MenuHeader: UIView {
     
     private var user: User
     
-    
-    private lazy var profileImageView: UIImageView = {
+    private lazy var profileImageView: UIView = {
        
-        let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
-        imageView.layer.cornerRadius = 32
-        return imageView
+        let view = UIView()
+        view.backgroundColor = .darkGray
+        view.layer.cornerRadius = 32
+        
+        view.addSubview(initialLabel)
+        initialLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.centerY.equalTo(view)
+        }
+        
+        return view
+        
+    }()
+    
+    private lazy var initialLabel: UILabel = {
+       
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 42)
+        label.textColor = .white
+        label.text = user.firstInitial
+        return label
         
     }()
     

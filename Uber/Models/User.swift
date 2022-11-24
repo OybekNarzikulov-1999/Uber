@@ -22,6 +22,8 @@ struct User {
     var homeLocation: String?
     var workLocation: String?
     
+    var firstInitial: String {return String(name.prefix(1))}
+    
     init(uid: String, dictionary: [String:Any]) {
         self.name = dictionary["fullname"] as? String ?? ""
         self.email = dictionary["email"] as? String ?? ""
