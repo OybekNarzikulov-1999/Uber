@@ -148,6 +148,16 @@ class ContainerViewController: UIViewController {
     
 }
 
+ // MARK: - SettingsTableViewControllerDelegate
+
+extension ContainerViewController: SettingsTableViewControllerDelegate {
+    func updateUser(_ controller: SettingsTableViewController) {
+        self.user = controller.user
+    }
+}
+
+// MARK: - HomeViewControllerDelegate
+
 extension ContainerViewController: HomeViewControllerDelegate {
     func handleMenuToggle() {
         
@@ -157,6 +167,7 @@ extension ContainerViewController: HomeViewControllerDelegate {
     }
 }
 
+// MARK: - MenuTableViewControllerDelegate
 
 extension ContainerViewController: MenuTableViewControllerDelegate {
     func didSelect(option: MenuOptions) {
@@ -169,6 +180,7 @@ extension ContainerViewController: MenuTableViewControllerDelegate {
             case .settings:
                 guard let user = self.user else {return}
                 let controller = SettingsTableViewController(user: user)
+                controller.delegate = self
                 let nav = UINavigationController(rootViewController: controller)
                 nav.isModalInPresentation = true
                 nav.modalPresentationStyle = .fullScreen

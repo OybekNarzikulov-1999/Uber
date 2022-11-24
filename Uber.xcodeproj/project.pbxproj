@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0DDB46D5EF89FAA334A52190 /* Pods_Uber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F644803F25C9C83E9EFB2E /* Pods_Uber.framework */; };
+		EA12EE08292F8ED7008446A3 /* AddLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA12EE07292F8ED7008446A3 /* AddLocationTableViewController.swift */; };
 		EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228075291BC9CB005C8357 /* HomeViewController.swift */; };
 		EA228078291BF25E005C8357 /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA228077291BF25E005C8357 /* LocationInputActivationView.swift */; };
 		EA27DEDD291E8DA800E339DF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA27DEDC291E8DA800E339DF /* User.swift */; };
@@ -43,6 +44,7 @@
 		43F644803F25C9C83E9EFB2E /* Pods_Uber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EE836681FFCB55A9E7BFD8 /* Pods-Uber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.debug.xcconfig"; path = "Target Support Files/Pods-Uber/Pods-Uber.debug.xcconfig"; sourceTree = "<group>"; };
 		DE292FB4A24C948506CC82DE /* Pods-Uber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.release.xcconfig"; path = "Target Support Files/Pods-Uber/Pods-Uber.release.xcconfig"; sourceTree = "<group>"; };
+		EA12EE07292F8ED7008446A3 /* AddLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationTableViewController.swift; sourceTree = "<group>"; };
 		EA228075291BC9CB005C8357 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EA228077291BF25E005C8357 /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
 		EA27DEDC291E8DA800E339DF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -105,6 +107,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EA12EE06292F8DEF008446A3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				EA553D4A292D2494008867A9 /* SettingsTableViewController.swift */,
+				EA12EE07292F8ED7008446A3 /* AddLocationTableViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		EA2D70322912AA45007004B5 = {
 			isa = PBXGroup;
 			children = (
@@ -162,11 +173,11 @@
 		EA2D70542912AA51007004B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EA12EE06292F8DEF008446A3 /* Settings */,
 				EA553D43292CCDDF008867A9 /* SideMenu */,
 				EA553D42292CCDCA008867A9 /* Authentication */,
 				EA228075291BC9CB005C8357 /* HomeViewController.swift */,
 				EA8C6B2A292542C7002F1579 /* PickupViewController.swift */,
-				EA553D4A292D2494008867A9 /* SettingsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -360,6 +371,7 @@
 				EA228076291BC9CB005C8357 /* HomeViewController.swift in Sources */,
 				EA553D45292CCFB1008867A9 /* ContainerViewController.swift in Sources */,
 				EA2D703F2912AA45007004B5 /* AppDelegate.swift in Sources */,
+				EA12EE08292F8ED7008446A3 /* AddLocationTableViewController.swift in Sources */,
 				EA553D4B292D2494008867A9 /* SettingsTableViewController.swift in Sources */,
 				EA7792FC291A8BA800166508 /* CustomUIView.swift in Sources */,
 				EA553D4D292D37DA008867A9 /* UserInfoHeardView.swift in Sources */,

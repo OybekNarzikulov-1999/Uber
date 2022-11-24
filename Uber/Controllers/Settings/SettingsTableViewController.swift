@@ -30,11 +30,17 @@ enum LocationType: Int, CaseIterable, CustomStringConvertible {
     
 }
 
+protocol SettingsTableViewControllerDelegate {
+    func updateUser(_ controller: SettingsTableViewController)
+}
+
 class SettingsTableViewController: UITableViewController {
 
     // MARK: - Properties
     
-    private let user: User
+    var user: User
+    private let locationManager = LocationHandler.shared.locationManager
+    var delegate: SettingsTableViewControllerDelegate? 
     
     private lazy var infoHeaderView: UserInfoHeardView = {
        
@@ -74,6 +80,17 @@ class SettingsTableViewController: UITableViewController {
     
     
     // MARK: - Helper Methods
+    
+    func locationText(forType type: LocationType) -> String {
+        
+        switch type {
+        case .home:
+            return user.homeLocation ?? type.subtitle
+        case .work:
+            return user.workLocation ?? type.subtitle
+        }
+        
+    }
     
     
     func configureTableView(){
@@ -132,16 +149,41 @@ extension SettingsTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! LocationTableViewCell
         
         guard let type = LocationType(rawValue: indexPath.row) else {return cell}
-        cell.type = type
+        cell.titleLabel.text = type.description
+        cell.addressLabel.text = locationText(forType: type)
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let type = LocationType(rawValue: indexPath.row) else {return}
+        guard let location = locationManager?.location else {return}
+        let controller = AddLocationTableViewController(type: type, location: location)
+        controller.delegate = self
+        let nav = UINavigationController(rootViewController: controller)
+        present(nav, animated: true, completion: nil)
         
-        print("DEBUG: Type is \(type)")
-        
+    }
+    
+}
+
+extension SettingsTableViewController: AddLocationTableViewControllerDelegate {
+    
+    func updateLocation(locationString: String, type: LocationType) {
+        PassengerService.shared.saveLocation(locationString: locationString, type: type) { error, ref in
+            self.dismiss(animated: true, completion: nil)
+            
+            switch type {
+            case .home:
+                self.user.homeLocation = locationString
+            case .work:
+                self.user.workLocation = locationString
+            }
+            
+            self.delegate?.updateUser(self)
+            
+            self.tableView.reloadData()
+        }
     }
     
 }

@@ -37,19 +37,14 @@ class HomeViewController: UIViewController {
     //MARK: - Properties
     
     private lazy var mapView = MKMapView()
-    
     private lazy var locationManager = LocationHandler.shared.locationManager
-    
     private lazy var inputActivationView = LocationInputActivationView()
-    
     private lazy var locationInputView = LocationInputView()
-    
     private var actionButtonConfig = actionButtonConfiguration()
-    
     private lazy var rideActionView = RideActivationView()
-    
     private var route: MKRoute?
-    
+    private var searchResults = [MKPlacemark]()
+    private var savedLocations = [MKPlacemark]()
     var delegate: HomeViewControllerDelegate?
     
     private lazy var actionButton: UIButton = {
@@ -61,8 +56,6 @@ class HomeViewController: UIViewController {
         
     }()
     
-    private var searchResults = [MKPlacemark]()
-    
     var user: User? {
         didSet {
             locationInputView.user = user
@@ -70,6 +63,7 @@ class HomeViewController: UIViewController {
                 fetchDrivers()
                 configureLocationInputActivationView()
                 observeCurrentTrip()
+                configureSavedUserLocations()
             } else {
                 observeTrips()
             }
@@ -191,6 +185,32 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Helper Methods
+    
+    func configureSavedUserLocations(){
+        guard let user = user else {return}
+        savedLocations.removeAll()
+        
+        if let homeLocation = user.homeLocation, let workLocation = user.workLocation {
+            print(homeLocation)
+            geocodeAddressString(address: homeLocation)
+            print(workLocation)
+            geocodeAddressString(address: workLocation)
+        }
+        
+    }
+    
+    func geocodeAddressString(address: String){
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            guard let clPlacemark = placemarks?.first else {return}
+            let placemark = MKPlacemark(placemark: clPlacemark)
+            self.savedLocations.append(placemark)
+            print(self.savedLocations.count)
+            print(address)
+            self.tableView.reloadData()
+        }
+    }
     
     func configureLocationInputActivationView(){
         
@@ -616,7 +636,7 @@ extension HomeViewController: LocationInputViewDelegate {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Test"
+        return section == 0 ? "Saved locations" : "Search Results"
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -624,12 +644,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 2 : searchResults.count
+        return section == 0 ? savedLocations.count : searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationCellID, for: indexPath) as! LocationTableViewCell
+        
+        if indexPath.section == 0 {
+            cell.placemark = savedLocations[indexPath.row]
+        }
         
         if indexPath.section == 1 {
             cell.placemark = searchResults[indexPath.row]
@@ -641,7 +665,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedPlacemark = searchResults[indexPath.row]
+        let selectedPlacemark = indexPath.section == 0 ? savedLocations[indexPath.row] : searchResults[indexPath.row]
         
         let destination = MKMapItem(placemark: selectedPlacemark)
         generatePolyline(toDestination: destination)
